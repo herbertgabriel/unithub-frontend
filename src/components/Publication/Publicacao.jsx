@@ -28,7 +28,7 @@ function Publicacao({ title, categorias, content, imagens }) {
                    
 
                 </div>
-                <Button title={"Inscrever-se"}/>
+                <Button title={"Ver mais"}/>
             </div>
             <div className="container-content"><p>{content}</p></div>
             <div className={`container-imagens ${containerClass}`}>
