@@ -21,7 +21,6 @@ function Navbar() {
 
   return (
     <div className="navbar-container">
-      {/* Botão do menu hambúrguer */}
       <button
         className={`hamburger-menu ${isMenuOpen ? "hidden" : ""}`}
         onClick={toggleMenu}
@@ -29,7 +28,6 @@ function Navbar() {
         ☰
       </button>
 
-      {/* Navbar lateral */}
       <div className={`sidebar ${isMenuOpen ? "open" : ""}`}>
         <button className="close-btn" onClick={toggleMenu}>
           ✖

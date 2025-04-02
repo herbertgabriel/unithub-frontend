@@ -3,7 +3,7 @@ import logo from "../../assets/logo.svg";
 import Navbar from "../Navbar/Navbar";
 import Button from "../Button/Button";
 import ButtonTransparent from "../ButtonTransparent/ButtonTransparent";
-import { Link } from "react-router-dom"; // Importa o Link do react-router-dom
+import { Link } from "react-router-dom"; 
 
 function Header() {
   return (
