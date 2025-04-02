@@ -3,18 +3,24 @@ import logo from "../../assets/logo.svg";
 import Navbar from "../Navbar/Navbar";
 import Button from "../Button/Button";
 import ButtonTransparent from "../ButtonTransparent/ButtonTransparent";
+import { Link } from "react-router-dom"; // Importa o Link do react-router-dom
 
 function Header() {
   return (
     <header className="header-container"> 
       <div className="menu-container"> 
         <div className="logo"> 
-          <img src={logo} alt="Logo" /> 
-        </div>
+        <Link to="/">
+            <img src={logo} alt="Logo" />
+          </Link>        </div>
         <nav>
           <ul>
-          <li><ButtonTransparent title={"Cadastrar"} /></li> 
-          <li><Button title={"Login"} /></li>
+          <li><Link to="/login?register=true">
+                <ButtonTransparent title={"Cadastrar"} />
+              </Link></li> 
+          <li><Link to="/login">
+                <Button title={"Login"} />
+              </Link></li>
           <li className="hamburguer"><Navbar /></li>
           </ul>
         </nav>
