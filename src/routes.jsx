@@ -3,7 +3,7 @@ import Feed from "./pages/Feed/Feed";
 import Login from "./pages/Login/Login";
 import RecuperarSenha from "./pages/RecoverPassword/RecuperarSenha";
 import Perfil from "./pages/Profile/Perfil";
-import Cursos from "./pages/Courses/Cursos";
+import Cursos from "./pages/CoursesManagment/Cursos";
 import MeusEventos from "./pages/MyEvents/MeusEventos";
 import EventosInscritos from "./pages/EnrolledEvents/EventosInscritos";
 import GerenciamentoUsuarios from "./pages/UserManagment/GerenciamentoUsuarios";
