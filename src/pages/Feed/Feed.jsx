@@ -66,7 +66,7 @@ function Feed() {
     <>
       <Header />
       <main className="feed-container">
-        <h1>Próximos eventos</h1>
+        <h1>Próximos eventos</h1>  {alert("ola")}
         <Carousel />
         <div className="feed-container">
           {loading ? (
