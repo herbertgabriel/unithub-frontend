@@ -54,7 +54,7 @@ function Carousel() {
           ...item,
           formattedDate: new Date(item.dateTime).toLocaleDateString("pt-BR", {
             day: "2-digit",
-            month: "2-digit",
+            month: "long", // Exibe o mês como string (ex: "Abril")
             year: "numeric",
           }),
         }));
