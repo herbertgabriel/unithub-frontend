@@ -7,7 +7,8 @@ import Cursos from "./pages/CoursesManagment/Cursos";
 import MeusEventos from "./pages/MyEvents/MeusEventos";
 import EventosInscritos from "./pages/EnrolledEvents/EventosInscritos";
 import GerenciamentoUsuarios from "./pages/UserManagment/GerenciamentoUsuarios";
-import FeedOrganizador from "./pages/FeedOrganizer/FeedOrganizador";
+import FeedOrganizador from "./pages/FeedManagment/FeedOrganizador";
+import EventDetails from "./pages/EventDetails/EventDetails";
 function MainRouter() {
     return (
       <Routes>
@@ -20,6 +21,7 @@ function MainRouter() {
         <Route path="/eventos-inscritos" element={<EventosInscritos />} />
         <Route path="/gerenciamento-usuarios" element={<GerenciamentoUsuarios />} />
         <Route path="/feed-organizador" element={<FeedOrganizador />} />
+        <Route path="/event-details/:id" element={<EventDetails />} />
         </Routes>
     );
   }
