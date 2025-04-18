@@ -21,8 +21,8 @@ function MainRouter() {
         <Route path="/eventos-inscritos" element={<EventosInscritos />} />
         <Route path="/gerenciamento-usuarios" element={<GerenciamentoUsuarios />} />
         <Route path="/feed-organizador" element={<FeedOrganizador />} />
-        <Route path="/event-details/:id" element={<EventDetails />} />
-        </Routes>
+        <Route path="/event-details/" element={<EventDetails />} />
+      </Routes>
     );
   }
   

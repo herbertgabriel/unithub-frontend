@@ -1,8 +1,8 @@
 .container-publication {
-    width: 800px;
+    max-width: 800px;
     padding: 1rem;
+    max-height: 1500px;
     margin: 2rem auto;
-    max-height: 600px; /* Limite de altura para a publicação */
     overflow: hidden; /* Esconde o conteúdo que ultrapassa a altura */
     border-radius: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -52,7 +52,7 @@
 
 .container-imagens img {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 0.5rem;
     object-fit: cover; /* Mantém a proporção da imagem sem esticar */
 }

@@ -4,7 +4,6 @@ import Footer from "../../components/Footer/Footer";
 import Carousel from "../../components/Carousel/Carousel";
 import Publicacao from "../../components/Publication/Publicacao";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
-import fakeFeedData from "../../data/fakeFeedData.json"; // Importa o JSON fake
 import "./Feed.css";
 
 function Feed() {
@@ -13,31 +12,33 @@ function Feed() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  
 
   useEffect(() => {
     const fetchFeed = async () => {
-      setLoading(true);
+      const apiUrl = import.meta.env.VITE_API_BASE_URL; // Obtém a URL da API
+      console.log(apiUrl); // Deve exibir a URL da API no console
+  
+      setLoading(true); // Inicia o estado de carregamento
       try {
-        // Simula a busca de dados do JSON fake
-        const data = fakeFeedData;
-        const filteredItems =
-          selectedCategory === "all"
-            ? data.feedItems
-            : data.feedItems.filter((item) =>
-                item.category
-                  .toLowerCase()
-                  .includes(selectedCategory.toLowerCase())
-              );
-
-        setFeedItems(filteredItems.slice(page * 5, (page + 1) * 5)); // Paginação
-        setTotalPages(Math.ceil(filteredItems.length / 5));
+        const response = await fetch(
+          `${apiUrl}/events/feed?page=${page}&category=${selectedCategory}`
+        );
+        if (!response.ok) {
+          throw new Error("Erro ao buscar os dados do feed.");
+        }
+        const data = await response.json();
+  
+        const filteredItems = data.feedItems || [];
+        setFeedItems(filteredItems);
+        setTotalPages(data.totalPages || 1);
       } catch (error) {
         console.error("Erro ao buscar o feed:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Finaliza o estado de carregamento
       }
     };
-
+  
     fetchFeed();
   }, [page, selectedCategory]);
 
@@ -80,16 +81,11 @@ function Feed() {
           ) : (
             feedItems.map((item) => (
               <Publicacao
-                key={item.PublicationId}
+                key={item.eventId}
                 title={item.title}
-                categorias={capitalizeWords(item.category || "")}
-                imagens={[
-                  item.imageUrl1,
-                  item.imageUrl2,
-                  item.imageUrl3,
-                  item.imageUrl4,
-                ]}
-                content={item.content}
+                categorias={capitalizeWords(item.category.join(" | ") || "")}
+                imagens={item.images}
+                content={item.description}
               />
             ))
           )}
