@@ -83,7 +83,9 @@ function Feed() {
               <Publicacao
                 key={item.eventId}
                 title={item.title}
-                categorias={capitalizeWords(item.category.join(" | ") || "")}
+                categorias={`${capitalizeWords(item.category.join(" | ") || "")} | ${
+                  item.isOfficial ? "Oficial" : "Não oficial"
+                }`}
                 imagens={item.images}
                 content={item.description}
               />
