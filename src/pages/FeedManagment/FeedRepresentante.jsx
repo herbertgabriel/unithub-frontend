@@ -6,25 +6,32 @@ import Pagination from "../../components/Pagination/Pagination";
 import "./FeedOrganizador.css";
 import Cookies from "js-cookie";
 
-function FeedOrganizador() {
+function FeedRepresentante() {
   const [feedItems, setFeedItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const [showRejectModal, setShowRejectModal] = useState(false);
-  const [rejectReason, setRejectReason] = useState("");
-  const [currentEventId, setCurrentEventId] = useState(null);
-  const [confirmCheckbox, setConfirmCheckbox] = useState(false); // Novo estado para o checkbox
 
   useEffect(() => {
     const fetchFeed = async () => {
       const apiUrl = import.meta.env.VITE_API_BASE_URL;
       const token = Cookies.get("jwtToken");
 
+      if (!token) {
+        console.error("Token JWT não encontrado. Usuário não autenticado.");
+        return;
+      }
+
       setLoading(true);
       try {
         const response = await fetch(
-          `${apiUrl}/events/feed?isActive=false&page=${page}`
+          `${apiUrl}/events/feed-by-course-creator?isActive=false&page=${page}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         if (!response.ok) {
@@ -81,45 +88,25 @@ function FeedOrganizador() {
     }
   };
 
-  const handleReject = (eventId) => {
-    setCurrentEventId(eventId);
-    setShowRejectModal(true);
-    setConfirmCheckbox(false); // Reseta o estado do checkbox
-  };
-
-  const confirmReject = async () => {
-    if (rejectReason.trim().length === 0) {
-      alert("Por favor, insira um motivo para recusar o evento.");
-      return;
-    }
-  
-    if (!confirmCheckbox) {
-      alert("Você deve confirmar que deseja recusar este evento.");
-      return;
-    }
-  
+  const handleReject = async (eventId) => {
     const apiUrl = import.meta.env.VITE_API_BASE_URL;
     const token = Cookies.get("jwtToken");
-  
+
     try {
-      const response = await fetch(`${apiUrl}/management/${currentEventId}`, {
+      const response = await fetch(`${apiUrl}/management/${eventId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ motivo: rejectReason }), // Alterado para "motivo"
       });
-  
+
       if (!response.ok) {
         throw new Error("Erro ao recusar o evento.");
       }
-  
+
       setFeedItems((prevItems) =>
-        prevItems.filter((item) => item.eventId !== currentEventId)
+        prevItems.filter((item) => item.eventId !== eventId)
       );
-      setShowRejectModal(false);
-      setRejectReason("");
     } catch (error) {
       console.error("Erro ao recusar o evento:", error);
     }
@@ -167,44 +154,8 @@ function FeedOrganizador() {
         )}
       </main>
       <Footer />
-
-      {showRejectModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Motivo para Recusar</h2>
-            <textarea
-              maxLength={200}
-              value={rejectReason}
-              onChange={(e) => setRejectReason(e.target.value)}
-              placeholder="Digite o motivo para recusar o evento (máximo 200 caracteres)"
-            />
-            <div className="checkbox-container">
-              <input
-                type="checkbox"
-                id="confirm-checkbox"
-                checked={confirmCheckbox}
-                onChange={(e) => setConfirmCheckbox(e.target.checked)}
-              />
-              <label htmlFor="confirm-checkbox">
-                Confirmo que desejo recusar este evento. Ele será excluído.
-              </label>
-            </div>
-            <div className="modal-actions">
-              <button onClick={confirmReject} className="btn-confirm">
-                Confirmar
-              </button>
-              <button
-                onClick={() => setShowRejectModal(false)}
-                className="btn-cancel"
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }
 
-export default FeedOrganizador;
+export default FeedRepresentante;

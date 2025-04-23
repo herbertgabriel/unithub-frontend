@@ -2,7 +2,18 @@ import "./Publicacao.css";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 
-function Publicacao({ eventId, title, categorias, content, imagens, onDelete, onUnsubscribe }) {
+function Publicacao({
+  eventId,
+  title,
+  categorias,
+  content,
+  imagens,
+  onDelete,
+  onUnsubscribe,
+  onManagment,
+  onAccept,
+  onReject,
+}) {
   const validImages = imagens.filter((imagem) => imagem !== null);
   const imageCount = validImages.length;
   let containerClass = "";
@@ -43,6 +54,20 @@ function Publicacao({ eventId, title, categorias, content, imagens, onDelete, on
               onClick={() => onUnsubscribe(eventId)}
               color={"#FFA500"} // Laranja
             />
+          )}
+          {onManagment && (
+            <>
+              <Button
+                title={"Aceitar"}
+                onClick={() => onAccept(eventId)}
+                color={"#008000"} // Verde
+              />
+              <Button
+                title={"Recusar"}
+                onClick={() => onReject(eventId)}
+                color={"#a80000"} // Vermelho
+              />
+            </>
           )}
         </div>
       </div>
