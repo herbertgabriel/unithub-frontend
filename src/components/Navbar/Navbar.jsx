@@ -14,8 +14,6 @@ function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  console.log("User Role:", userRole); // Depuração para verificar o valor de userRole
-
   return (
     <div className="navbar-container">
       {isAuthenticated && (

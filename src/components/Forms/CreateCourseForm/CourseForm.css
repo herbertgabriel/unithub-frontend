@@ -1,0 +1,61 @@
+.create-course-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .create-course-form h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .create-course-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .create-course-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .create-course-form input,
+  .create-course-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .create-course-form .btn-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-course-form .btn-submit:hover {
+    background-color: #0056b3;
+  }
+  
+  .create-course-form .error-message {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  
+  .create-course-form .success-message {
+    color: #28a745;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
