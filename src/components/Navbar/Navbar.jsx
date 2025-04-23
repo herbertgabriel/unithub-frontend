@@ -1,32 +1,31 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { HiUserCircle } from "react-icons/hi2";
-import { HiAcademicCap } from "react-icons/hi2";
-import { HiMiniDocumentText } from "react-icons/hi2";
-import { HiUsers } from "react-icons/hi2";
-import { HiTicket } from "react-icons/hi2";
-import { HiPencilSquare } from "react-icons/hi2";
-import { HiRectangleGroup } from "react-icons/hi2";
+import { HiUserCircle, HiAcademicCap, HiMiniDocumentText, HiUsers, HiTicket, HiPencilSquare, HiRectangleGroup } from "react-icons/hi2";
+import { ImExit } from "react-icons/im";
 
-
-
+import { useAuth } from "../../context/AuthContext"; // Importa o AuthContext
 import "./Navbar.css";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { userRole, logout, isAuthenticated } = useAuth(); // Obtém a role e a função de logout do AuthContext
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  console.log("User Role:", userRole); // Depuração para verificar o valor de userRole
+
   return (
     <div className="navbar-container">
-      <button
-        className={`hamburger-menu ${isMenuOpen ? "hidden" : ""}`}
-        onClick={toggleMenu}
-      >
-        ☰
-      </button>
+      {isAuthenticated && (
+        <button
+          className={`hamburger-menu ${isMenuOpen ? "hidden" : ""}`}
+          onClick={toggleMenu}
+        >
+          ☰
+        </button>
+      )}
 
       <div className={`sidebar ${isMenuOpen ? "open" : ""}`}>
         <button className="close-btn" onClick={toggleMenu}>
@@ -34,15 +33,39 @@ function Navbar() {
         </button>
         <nav className="nav-links">
           <ul>
+            {/* Links comuns a todos os usuários */}
             <li><Link to="/profile" onClick={toggleMenu}><HiUserCircle /> Meu Perfil</Link></li>
             <li><Link to="/meus-eventos" onClick={toggleMenu}><HiRectangleGroup /> Meus Eventos</Link></li>
             <li><Link to="/eventos-inscritos" onClick={toggleMenu}><HiTicket /> Eventos Inscritos</Link></li>
-            <li><Link to="/eventos-inscritos" onClick={toggleMenu}><HiPencilSquare /> Criar Publicação</Link></li>
-            {/* Adimin e Organizador */}
-            <li><Link to="/feed-organizador" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações</Link></li>
-            <li><Link to="/cursos" onClick={toggleMenu}><HiAcademicCap /> Gerenciar Cursos</Link></li>
-            <li><Link to="/gerenciamento-usuarios" onClick={toggleMenu}><HiUsers /> Gerenciamento de Usuários</Link></li>
+            <li><Link to="/criar-publicacao" onClick={toggleMenu}><HiPencilSquare /> Criar Publicação</Link></li>
 
+
+            {/* Links específicos para ADMIN */}
+            {userRole === "ADMIN" && (
+              <>
+                <li><Link to="/feed-organizador" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações</Link></li>
+                <li><Link to="/cursos" onClick={toggleMenu}><HiAcademicCap /> Gerenciar Cursos</Link></li>
+                <li><Link to="/gerenciamento-usuarios" onClick={toggleMenu}><HiUsers /> Gerenciamento de Usuários</Link></li>
+              </>
+            )}
+
+            {/* Links específicos para ORGANIZADOR */}
+            {userRole === "ORGANIZADOR" && (
+              <>
+                <li><Link to="/feed-organizador" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações</Link></li>
+                <li><Link to="/gerenciamento-usuarios" onClick={toggleMenu}><HiUsers /> Gerenciamento de Representantes</Link></li>
+              </>
+            )}
+
+            {/* Links específicos para ALUNO_REPRESENTANTE */}
+            {userRole === "ALUNO_REPRESENTANTE" && (
+              <>
+                <li><Link to="/feed-organizador" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações </Link></li>
+              </>
+            )}
+                <li className="logout-button" onClick={() => { logout(); toggleMenu(); }}>
+              <Link to="/"><ImExit /> Sair</Link>
+            </li>
           </ul>
         </nav>
       </div>

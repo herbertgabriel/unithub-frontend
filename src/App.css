@@ -10,3 +10,10 @@ body {
   font-weight: 500;
   font-style: normal;
 }
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+

@@ -27,7 +27,11 @@
     flex-direction: column;
 }
 
-
+.container-botoes{
+    display: flex;
+    gap: 1rem;
+    margin-left: auto; /* Adiciona margem à esquerda para empurrar os botões para a direita */
+}
 
 .container-titulo h1 {
     margin: 0;

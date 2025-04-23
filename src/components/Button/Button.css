@@ -14,6 +14,5 @@
   .button-template:hover {
     background-color: white;
     transition: 0.5s;
-    color: black;
-    
+    opacity: 90%; 
   }

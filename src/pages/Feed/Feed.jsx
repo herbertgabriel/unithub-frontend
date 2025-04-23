@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Carousel from "../../components/Carousel/Carousel";
 import Publicacao from "../../components/Publication/Publicacao";
-import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import Pagination from "../../components/Pagination/Pagination";
 import "./Feed.css";
 
 function Feed() {
@@ -82,6 +82,7 @@ function Feed() {
             feedItems.map((item) => (
               <Publicacao
                 key={item.eventId}
+                eventId={item.eventId}
                 title={item.title}
                 categorias={`${capitalizeWords(item.category.join(" | ") || "")} | ${
                   item.isOfficial ? "Oficial" : "Não oficial"
@@ -92,17 +93,12 @@ function Feed() {
             ))
           )}
         </div>
-        <div className="container-carregar-mais">
-          <button onClick={handlePreviousPage} disabled={page === 0}>
-            <SlArrowLeft />
-          </button>
-          <span>
-            Página {page + 1} de {totalPages}
-          </span>
-          <button onClick={handleNextPage} disabled={page >= totalPages - 1}>
-            <SlArrowRight />
-          </button>
-        </div>
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onPreviousPage={handlePreviousPage}
+          onNextPage={handleNextPage}
+        />
       </main>
       <Footer />
     </>
