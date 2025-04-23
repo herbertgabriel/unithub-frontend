@@ -43,7 +43,7 @@ function Navbar() {
             {/* Links específicos para ADMIN */}
             {userRole === "ADMIN" && (
               <>
-                <li><Link to="/feed-organizador" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações</Link></li>
+                <li><Link to="/feed-managment" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações</Link></li>
                 <li><Link to="/cursos" onClick={toggleMenu}><HiAcademicCap /> Gerenciar Cursos</Link></li>
                 <li><Link to="/gerenciamento-usuarios" onClick={toggleMenu}><HiUsers /> Gerenciamento de Usuários</Link></li>
               </>
@@ -52,7 +52,7 @@ function Navbar() {
             {/* Links específicos para ORGANIZADOR */}
             {userRole === "ORGANIZADOR" && (
               <>
-                <li><Link to="/feed-organizador" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações</Link></li>
+                <li><Link to="/feed-managment" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações</Link></li>
                 <li><Link to="/gerenciamento-usuarios" onClick={toggleMenu}><HiUsers /> Gerenciamento de Representantes</Link></li>
               </>
             )}
@@ -60,7 +60,7 @@ function Navbar() {
             {/* Links específicos para ALUNO_REPRESENTANTE */}
             {userRole === "ALUNO_REPRESENTANTE" && (
               <>
-                <li><Link to="/feed-organizador" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações </Link></li>
+                <li><Link to="/feed-managment" onClick={toggleMenu}><HiMiniDocumentText /> Solicitações de Publicações </Link></li>
               </>
             )}
                 <li className="logout-button" onClick={() => { logout(); toggleMenu(); }}>

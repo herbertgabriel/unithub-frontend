@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import "./Perfil.css";
 import Cookies from "js-cookie";
-import { validatePassword } from "../../util/validation";
+import { validatePassword } from "../../utils/validations";
 
 function Perfil() {
     const [userData, setUserData] = useState(null);

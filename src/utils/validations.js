@@ -38,8 +38,8 @@ const sanitizeInput = (input) => {
   };
   
   // Valida os campos do formulário de cadastro
-  const validateRegisterForm = (email, password, confirmPassword, courseId, telephone) => {
-    if (!validateName(name)) {
+  const validateRegisterForm = (nome, email, password, confirmPassword, courseId, telephone) => {
+    if (!validateName(nome)) {
         return "Por favor, insira um nome válido (apenas letras e espaços, com pelo menos 2 caracteres).";
       }
     if (!validateEmail(email)) {
