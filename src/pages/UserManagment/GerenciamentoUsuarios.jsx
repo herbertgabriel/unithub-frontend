@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import Cookies from "js-cookie";
 import FormsPopup from "../../components/Popup/FormsPopup/FormsPopup";
 import "./GerenciamentoUsuarios.css";
+import Button from "../../components/Button/Button";
 
 function GerenciamentoUsuarios() {
   const [users, setUsers] = useState([]);
@@ -175,19 +176,10 @@ function GerenciamentoUsuarios() {
                     {/* Remove os botões para usuários com role "Admin" */}
                     
                       <>
-                        <button
-                          className="btn-edit"
-                          onClick={() => handleOpenRolePopup(user)}
-                        >
-                          Alterar Role
-                        </button>
+                        <Button title="Alterar Função" onClick={() => handleOpenRolePopup(user)} color="yellow"/> 
                         {Cookies.get("userRole") !== "ORGANIZADOR" && (
-                        <button
-                        className="btn-delete"
-                        onClick={() => handleOpenDeletePopup(user)}
-                        >
-                        Deletar
-                        </button>
+                          
+                          <Button title="Deletar" onClick={() => handleOpenDeletePopup(user)} color="red"/> 
                         )}
                         
                       </>
@@ -223,9 +215,7 @@ function GerenciamentoUsuarios() {
             <option value="3">Aluno</option>
             <option value="4">Aluno Organizador</option>
           </select>
-          <button className="btn-confirm" onClick={handleChangeRole}>
-            Confirmar
-          </button>
+          <Button title="Confirmar" onClick={handleChangeRole} color="green"/>
         </FormsPopup>
       )}
 
@@ -248,9 +238,7 @@ function GerenciamentoUsuarios() {
               Confirmo que desejo excluir este usuário.
             </label>
           </div>
-          <button className="btn-confirm" onClick={handleDeleteUser}>
-            Confirmar
-          </button>
+          <Button title="Confirmar"  onClick={handleDeleteUser} color="green"/>
         </FormsPopup>
       )}
     </>

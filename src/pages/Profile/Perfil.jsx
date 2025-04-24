@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import "./Perfil.css";
 import Cookies from "js-cookie";
 import { validatePassword } from "../../utils/validations";
+import Button from "../../components/Button/Button";
 
 function Perfil() {
     const [userData, setUserData] = useState(null);
@@ -150,12 +151,12 @@ function Perfil() {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />
-                            <button onClick={handleSave}>Salvar</button>
-                            <button onClick={handleCancel}>Cancelar</button>
+                            <Button title="Salvar" onClick={handleSave} color="green"/>
+                            <Button title="Cancelar" onClick={handleCancel} color="red"/>
                         </>
                     ) : (
                         <>
-                            <button onClick={handleEdit}>Alterar Senha</button>
+                            <Button title="Alterar Senha" onClick={handleEdit} color="yellow"/>
                         </>
                     )}
                 </div>

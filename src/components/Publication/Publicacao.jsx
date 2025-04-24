@@ -45,14 +45,14 @@ function Publicacao({
             <Button
               title={"Deletar Evento"}
               onClick={() => onDelete(eventId)}
-              color={"#a80000"} // Vermelho
+              color={"red"} // Vermelho
             />
           )}
           {onUnsubscribe && (
             <Button
               title={"Desinscrever"}
               onClick={() => onUnsubscribe(eventId)}
-              color={"#FFA500"} // Laranja
+              color={"yellow"} // Amarelo
             />
           )}
           {onManagment && (
@@ -60,12 +60,12 @@ function Publicacao({
               <Button
                 title={"Aceitar"}
                 onClick={() => onAccept(eventId)}
-                color={"#008000"} // Verde
+                color={"green"} // Verde
               />
               <Button
                 title={"Recusar"}
                 onClick={() => onReject(eventId)}
-                color={"#a80000"} // Vermelho
+                color={"red"} // Vermelho
               />
             </>
           )}

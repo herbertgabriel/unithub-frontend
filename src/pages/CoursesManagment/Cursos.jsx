@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import CourseForm from "../../components/Forms/CreateCourseForm/CourseForm";
 import CoursePopup from "../../components/Popup/FormsPopup/FormsPopup";
+import Button from "../../components/Button/Button";
 import "./Cursos.css";
 
 function Cursos() {
@@ -94,9 +95,7 @@ function Cursos() {
       <Header />
       <main className="courses-container">
         <h1>Gestão de Cursos</h1>
-        <button className="btn-create" onClick={handleCreate}>
-          Criar Curso
-        </button>
+        <Button title="Criar Curso" onClick={handleCreate} />
         <table className="courses-table">
           <thead>
             <tr>
@@ -113,18 +112,9 @@ function Cursos() {
                 <td>{course.nome}</td>
                 <td>{course.categoria}</td>
                 <td>
-                  <button
-                    className="btn-edit"
-                    onClick={() => handleEdit(course)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn-delete"
-                    onClick={() => handleDelete(course)}
-                  >
-                    Excluir
-                  </button>
+                  <Button title="Editar" onClick={() => handleEdit(course)} />
+                    
+                  <Button title="Excluir" onClick={() => handleDelete(course)} color="red"/>
                 </td>
               </tr>
             ))}
