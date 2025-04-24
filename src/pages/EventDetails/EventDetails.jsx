@@ -5,6 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import "./EventDetails.css";
 import Button from "../../components/Button/Button";
 import Popup from "../../components/Popup/Popup"; // Importa o componente Popup
+import SubscribersList from "../../components/SubscribersList/SubscribersList"; // Importa o componente SubscribersList
 import Cookies from "js-cookie";
 
 function EventDetails() {
@@ -13,11 +14,12 @@ function EventDetails() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
-    const [showPopup, setShowPopup] = useState(false); // Controla a exibição do Popup
+    const [showPopup, setShowPopup] = useState(false); // Controla a exibição do Popup de erro
+    const [showSubscribersPopup, setShowSubscribersPopup] = useState(false); // Controla a exibição do Popup de inscritos
+    const apiUrl = import.meta.env.VITE_API_BASE_URL; // Obtém a URL base da API
 
     useEffect(() => {
         const fetchEventDetails = async () => {
-            const apiUrl = import.meta.env.VITE_API_BASE_URL; // Obtém a URL base da API
             try {
                 const response = await fetch(`${apiUrl}/events/${id}`);
                 if (!response.ok) {
@@ -37,7 +39,6 @@ function EventDetails() {
     }, [id]);
 
     const handleSubscribe = async () => {
-        const apiUrl = import.meta.env.VITE_API_BASE_URL;
         try {
             const token = Cookies.get("jwtToken");
             if (!token) {
@@ -52,6 +53,10 @@ function EventDetails() {
                 },
             });
 
+
+            if (response.status === 409) {
+                throw new Error("Você já está inscrito neste evento.");
+            }
             if (!response.ok) {
                 throw new Error("Erro ao se inscrever no evento.");
             }
@@ -66,6 +71,14 @@ function EventDetails() {
     const closePopup = () => {
         setShowPopup(false);
         setError(null);
+    };
+
+    const openSubscribersPopup = () => {
+        setShowSubscribersPopup(true); // Abre o popup de inscritos
+    };
+
+    const closeSubscribersPopup = () => {
+        setShowSubscribersPopup(false); // Fecha o popup de inscritos
     };
 
     if (loading) {
@@ -117,7 +130,12 @@ function EventDetails() {
                     {eventDetails.maxParticipants !== 0 && (
                         <Button title="Inscrever-se" onClick={handleSubscribe} />
                     )}
-                    {successMessage && <p className="success-message">{successMessage}</p>}
+                    {(Cookies.get("userRole") === "ORGANIZADOR" || Cookies.get("userRole") === "ADMIN" && eventDetails.maxParticipants !== 0) && (
+                        <>
+                            <Button title="Ver Inscritos" onClick={openSubscribersPopup} />
+                            {successMessage && <p className="success-message">{successMessage}</p>}
+                        </>
+                    )}
                 </div>
             )}
             {showPopup && (
@@ -126,6 +144,9 @@ function EventDetails() {
                     message={error}
                     onClose={closePopup}
                 />
+            )}
+            {showSubscribersPopup && (
+                <SubscribersList eventId={id} onClose={closeSubscribersPopup} />
             )}
             <Footer />
         </>
