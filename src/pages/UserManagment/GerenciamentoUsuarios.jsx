@@ -159,7 +159,9 @@ function GerenciamentoUsuarios() {
               <th>Nome</th>
               <th>Email</th>
               <th>Telefone</th>
+              {selectedRole !== "2" && (
               <th>Curso</th>
+              )}
               <th>Ações</th>
             </tr>
           </thead>
@@ -169,7 +171,9 @@ function GerenciamentoUsuarios() {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.telephone || "N/A"}</td>
+                {selectedRole !== "2" && (
                 <td>{user.course || "N/A"}</td>
+              )}
                 {user.role !== "ADMIN" && (
                 <td>
                   <div className="actions">
