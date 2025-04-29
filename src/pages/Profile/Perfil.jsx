@@ -5,6 +5,8 @@ import "./Perfil.css";
 import Cookies from "js-cookie";
 import { validatePassword } from "../../utils/validations";
 import Button from "../../components/Button/Button";
+import { FaCircleUser } from "react-icons/fa6";
+
 
 function Perfil() {
     const [userData, setUserData] = useState(null);
@@ -117,10 +119,13 @@ function Perfil() {
         <>
             <Header />
             <div className="perfil-container">
-                <h1>Meu Perfil</h1>
+                <div className="title-container">
+                    <h1>Meu Perfil</h1> {/* O título */}
+                    <FaCircleUser className="perfil-icon" /> {/* O ícone */}
+                </div>
                 {successMessage && <p className="success-message">{successMessage}</p>}
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
-                <div className="perfil-field">
+                <div className="perfil-field" id="id-field">
                     <p><strong>ID:</strong> {userData.userId}</p>
                 </div>
                 <div className="perfil-field">
