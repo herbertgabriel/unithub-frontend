@@ -74,6 +74,9 @@
   text-align: center;
   margin-bottom: 20px; 
 }
+.title-container :first-child {
+  text-align: left;
+}
 
 .title-container h1 {
   font-size: 24px; 
@@ -82,7 +85,7 @@
 }
 
 .title-container .perfil-icon {
-  font-size: 80px;
+  font-size: 7rem;
   color: #333333;
   margin-top: 10px;
 }
