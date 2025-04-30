@@ -4,8 +4,8 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import "./EventDetails.css";
 import Button from "../../components/Button/Button";
-import Popup from "../../components/Popup/Popup"; // Importa o componente Popup
-import SubscribersList from "../../components/SubscribersList/SubscribersList"; // Importa o componente SubscribersList
+import Popup from "../../components/Popup/Popup";
+import SubscribersList from "../../components/SubscribersList/SubscribersList";
 import Cookies from "js-cookie";
 
 function EventDetails() {
@@ -53,7 +53,6 @@ function EventDetails() {
                 },
             });
 
-
             if (response.status === 409) {
                 throw new Error("Você já está inscrito neste evento.");
             }
@@ -64,6 +63,35 @@ function EventDetails() {
             setSuccessMessage("Inscrição realizada com sucesso!");
         } catch (err) {
             setError(err.message);
+            setShowPopup(true); // Exibe o Popup em caso de erro
+        }
+    };
+
+    const handleDelete = async (eventId) => {
+        try {
+            const token = Cookies.get("jwtToken");
+            if (!token) {
+                throw new Error("Token JWT não encontrado.");
+            }
+
+            const response = await fetch(`${apiUrl}/events/${eventId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Erro ao deletar o evento.");
+            }
+
+            setSuccessMessage("Evento excluído com sucesso!");
+            setTimeout(() => {
+                window.history.back();
+            }, 3000);
+        } catch (error) {
+            setError(error.message);
             setShowPopup(true); // Exibe o Popup em caso de erro
         }
     };
@@ -111,7 +139,7 @@ function EventDetails() {
                     <p><strong>Categorias:</strong> {eventDetails.categories.join(", ")}</p>
                     <p><strong>Ativo:</strong> {eventDetails.active ? "Sim" : "Não"}</p>
                     <p><strong>Máximo de Participantes:</strong> {eventDetails.maxParticipants || "Sem limite"}</p>
-                    
+
                     {/* Exibe as imagens do evento */}
                     {eventDetails.images && eventDetails.images.length > 0 && (
                         <div className="event-images">
@@ -130,10 +158,10 @@ function EventDetails() {
                     {eventDetails.maxParticipants !== 0 && (
                         <Button title="Inscrever-se" onClick={handleSubscribe} />
                     )}
-                    {(Cookies.get("userRole") === "ORGANIZADOR" || Cookies.get("userRole") === "ADMIN" && eventDetails.maxParticipants !== 0) && (
+                    {(Cookies.get("userRole") === "ORGANIZADOR" || Cookies.get("userRole") === "ADMIN") && (
                         <>
                             <Button title="Ver Inscritos" onClick={openSubscribersPopup} />
-                            {successMessage && <p className="success-message">{successMessage}</p>}
+                            <Button title="Excluir publicação" onClick={() => handleDelete(id)} color="red" />
                         </>
                     )}
                 </div>
@@ -147,6 +175,13 @@ function EventDetails() {
             )}
             {showSubscribersPopup && (
                 <SubscribersList eventId={id} onClose={closeSubscribersPopup} />
+            )}
+            {successMessage && (
+                <Popup
+                    title="Sucesso"
+                    message={successMessage}
+                    onClose={() => setSuccessMessage(null)}
+                />
             )}
             <Footer />
         </>
