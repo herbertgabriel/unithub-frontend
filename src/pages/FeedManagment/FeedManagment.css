@@ -32,7 +32,7 @@
   
   /* Textarea */
   #reject-modal-feed-managment .modal-content textarea {
-    width: 100%;
+    width: 95%;
     height: 100px;
     margin-top: 10px;
     padding: 10px;
@@ -76,26 +76,30 @@
     font-size: 1rem;
     transition: background-color 0.3s ease;
   }
-  
-  #reject-modal-feed-managment .modal-actions .btn-confirm:hover {
-    background-color: #218838;
+
+  #reject-modal-feed-managment .modal-actions .button-template:last-child{
+    background-color: #a80000;
+    border-color: #a80000;
+  }
+
+  #reject-modal-feed-managment .modal-actions .button-template:first-child{
+    background-color: #008000;
+    border-color: #008000;
   }
   
-  #reject-modal-feed-managment .modal-actions .btn-cancel {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
+  #reject-modal-feed-managment .modal-actions .button-template:hover {
+    color: black;
+    background-color: white;
+  }
+
+  #reject-modal-feed-managment .modal-content textarea::placeholder {
+    font-family: "Arial", sans-serif;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    color: #888; 
   }
+
   
-  #reject-modal-feed-managment .modal-actions .btn-cancel:hover {
-    background-color: #c82333;
-  }
-  
+
   /* Animação de entrada */
   @keyframes fadeIn {
     from {

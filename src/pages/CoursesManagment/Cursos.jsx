@@ -158,15 +158,8 @@ function Cursos() {
           </div>
           {deleteError && <p className="error-message">{deleteError}</p>}
           <div className="modal-actions">
-            <button className="btn-confirm" onClick={confirmDeleteCourse}>
-              Confirmar
-            </button>
-            <button
-              className="btn-cancel"
-              onClick={() => setShowDeletePopup(false)}
-            >
-              Cancelar
-            </button>
+            <Button title="Confirmar" onClick={confirmDeleteCourse} color="green"/>
+            <Button title="Cancelar" onClick={() => setShowDeletePopup(false)} color="red"/>
           </div>
         </CoursePopup>
       )}

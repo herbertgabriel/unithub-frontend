@@ -15,7 +15,6 @@ function Feed() {
         <FeedComponent
           apiUrl={apiUrl}
           fetchUrl="/events/feed?category=all"
-          title="Próximos eventos"
         />
       </main>
       <Footer />

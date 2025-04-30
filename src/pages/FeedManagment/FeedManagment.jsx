@@ -160,14 +160,14 @@ function FeedManagment() {
             <div className="modal-actions">
               <button
                 onClick={confirmReject}
-                className="btn-confirm"
+                className="button-template"
                 disabled={rejectReason.trim().length === 0 || !confirmCheckbox} // Desabilita o botão se as condições não forem atendidas
               >
                 Confirmar
               </button>
               <button
                 onClick={() => setShowRejectModal(false)}
-                className="btn-cancel"
+                className="button-template"
               >
                 Cancelar
               </button>

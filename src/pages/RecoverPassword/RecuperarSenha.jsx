@@ -6,7 +6,7 @@ function RecuperarSenha() {
     return (
         <>
         <Header />
-
+        
         <Footer />
         </>
     );

@@ -105,7 +105,7 @@ function CourseForm({ apiUrl, onSuccess, editingCourse }) {
           ))}
         </select>
       </div>
-      <button type="submit" className="btn-submit">
+      <button type="submit" className="button-template">
         {editingCourse ? "Salvar Alterações" : "Criar Curso"}
       </button>
     </form>
