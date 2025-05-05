@@ -217,7 +217,7 @@ function GerenciamentoUsuarios() {
               <option value="2">Organizador</option>
             )}
             <option value="3">Aluno</option>
-            <option value="4">Aluno Organizador</option>
+            <option value="4">Aluno Representante</option>
           </select>
           <Button title="Confirmar" onClick={handleChangeRole} color="green"/>
         </FormsPopup>
