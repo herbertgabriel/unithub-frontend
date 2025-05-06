@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { sanitizeInput, validateRecoverPasswordForm } from "../../../utils/validations";
-import {httpStatusMessagesLogin} from "../../../utils/httpStatusMessages";
+import { httpStatusMessagesLogin } from "../../../utils/httpStatusMessages";
 import Popup from "../../Popup/Popup";
+import ReCAPTCHA from "react-google-recaptcha";
 
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 function RecoverPasswordForm({ apiUrl, setPopupData, setIsRecoverPassword, setError }) {
   const [email, setEmail] = useState("");
   const [showPopup, setShowPopup] = useState(false); // Estado para controlar o Popup
   const [popupMessage, setPopupMessage] = useState(""); // Mensagem do Popup
+  const [captchaValue, setCaptchaValue] = useState(null); // Valor do reCAPTCHA
 
   const handleRecoverPassword = async (e) => {
     e.preventDefault();
@@ -19,18 +22,24 @@ function RecoverPasswordForm({ apiUrl, setPopupData, setIsRecoverPassword, setEr
       return;
     }
 
+    if (!captchaValue) {
+      setPopupMessage("Por favor, complete o reCAPTCHA.");
+      setShowPopup(true);
+      return;
+    }
+
     try {
       const response = await fetch(`${apiUrl}/recover-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: sanitizedEmail }),
+        body: JSON.stringify({ email: sanitizedEmail, recaptchaToken: captchaValue }), // Envia o token do reCAPTCHA
       });
 
       if (!response.ok) {
         setPopupMessage(httpStatusMessagesLogin[response.status] || "Erro ao recuperar senha.");
-        setShowPopup(true); 
+        setShowPopup(true);
         return;
       }
 
@@ -44,13 +53,17 @@ function RecoverPasswordForm({ apiUrl, setPopupData, setIsRecoverPassword, setEr
     }
   };
 
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value); // Atualiza o valor do reCAPTCHA
+  };
+
   return (
     <>
       {showPopup && (
         <Popup
           title={"Erro"}
           message={popupMessage}
-          onClose={() => setShowPopup(false)} 
+          onClose={() => setShowPopup(false)}
         />
       )}
       <form onSubmit={handleRecoverPassword} className="recover-password-form">
@@ -62,6 +75,13 @@ function RecoverPasswordForm({ apiUrl, setPopupData, setIsRecoverPassword, setEr
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+          />
+        </div>
+        <div>
+          <ReCAPTCHA
+            sitekey={RECAPTCHA_SITE_KEY} // Substitua pelo seu sitekey
+            onChange={handleCaptchaChange} // Define a função para capturar o token
+            className="recaptcha"
           />
         </div>
         <button type="submit">Recuperar Senha</button>

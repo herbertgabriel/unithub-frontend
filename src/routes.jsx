@@ -10,7 +10,6 @@ import GerenciamentoUsuarios from "./pages/UserManagment/GerenciamentoUsuarios";
 import FeedManagment from "./pages/FeedManagment/FeedManagment";
 import EventDetails from "./pages/EventDetails/EventDetails";
 import CriarPublicacao from "./pages/CreatePublication/CriarPublicacao";
-import EmailNewPassword from "./pages/EmailNewPassword/EmailNewPassword";
 
 function MainRouter() {
     return (
@@ -26,7 +25,6 @@ function MainRouter() {
         <Route path="/feed-managment" element={<FeedManagment />} />
         <Route path="/event-details/:id" element={<EventDetails />} />      
         <Route path="/criar-publicacao" element={<CriarPublicacao />} />
-        <Route path="/esqueci-senha" element={<EmailNewPassword />} />
       </Routes>
     );
   }

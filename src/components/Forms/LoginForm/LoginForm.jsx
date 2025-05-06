@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { sanitizeInput, validateLoginForm } from "../../../utils/validations";
-import {httpStatusMessagesLogin} from "../../../utils/httpStatusMessages";
+import { httpStatusMessagesLogin } from "../../../utils/httpStatusMessages";
 import Popup from "../../Popup/Popup";
+import ReCAPTCHA from "react-google-recaptcha";
 
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 function LoginForm({ apiUrl, login }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPopup, setShowPopup] = useState(false); // Estado para controlar o Popup
   const [popupData, setPopupData] = useState({ title: "", message: "" }); // Dados do Popup
+  const [captchaValue, setCaptchaValue] = useState(null); // Valor do reCAPTCHA
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,13 +25,23 @@ function LoginForm({ apiUrl, login }) {
       return;
     }
 
+    if (!captchaValue) {
+      setPopupData({ title: "Erro", message: "Por favor, complete o reCAPTCHA." });
+      setShowPopup(true);
+      return;
+    }
+
     try {
       const response = await fetch(`${apiUrl}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: sanitizedEmail, password: sanitizedPassword }),
+        body: JSON.stringify({
+          email: sanitizedEmail,
+          password: sanitizedPassword,
+          recaptchaToken: captchaValue, // Envia o token do reCAPTCHA
+        }),
       });
 
       if (!response.ok) {
@@ -55,6 +68,10 @@ function LoginForm({ apiUrl, login }) {
       setPopupData({ title: "Erro", message: err.message });
       setShowPopup(true);
     }
+  };
+
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value); // Atualiza o valor do reCAPTCHA
   };
 
   return (
@@ -87,6 +104,14 @@ function LoginForm({ apiUrl, login }) {
             required
           />
         </div>
+        <div>
+          <ReCAPTCHA
+            sitekey={RECAPTCHA_SITE_KEY}
+            onChange={handleCaptchaChange} 
+            className="recaptcha" // Adiciona uma classe para estilização
+          />
+        </div>
+
         <button type="submit">Entrar</button>
       </form>
     </>

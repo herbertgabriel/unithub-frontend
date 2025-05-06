@@ -9,7 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 
 function Header() {
   const { isAuthenticated, showLogoutPopup, closeLogoutPopup } = useAuth();
-
+  
   return (
     <header className="header-container">
       {showLogoutPopup && (
@@ -38,7 +38,13 @@ function Header() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/login">
+                  <Link
+                    to="/login"
+                    onClick={(e) => {
+                      e.preventDefault(); 
+                      window.location.href = "/login"; 
+                    }}
+                  >
                     <Button title={"Login"} />
                   </Link>
                 </li>

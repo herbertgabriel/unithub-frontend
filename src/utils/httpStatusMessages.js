@@ -16,9 +16,13 @@ const httpStatusMessages = {
   const httpStatusMessagesLogin = {
     200: "Login bem-sucedido.",
     201: "Sua conta foi criada com sucesso.",
-    401: "E-mail ou senha inválidos.",
-    403: "E-mail ou senha inválidos.",
-    409: "E-mail já cadastrado.",
+    400: "Senhas diferentes no cadastro.",
+    401: "Email ou senha incorretos.",
+    403: "Email ou senha incorretos.",
+    404: "Curso não encontrado.",
+    409: "Email já cadastrado.",
+    422: "Email já cadastrado.",
+    500: "Role padrão 'ALUNO' não registrada.",
     503: "Serviço Indisponível - O servidor está temporariamente indisponível.",
     504: "Gateway Timeout - O servidor demorou muito para responder.",
   };
